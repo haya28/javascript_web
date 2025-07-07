@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript グラフィックス処理 - 三角関数と線形代数</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>JavaScript グラフィックス処理</h1>
+        <p>三角関数と線形代数を活用した実践的なグラフィックス処理</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#theory">基礎理論</a></li>
+            <li><a href="#implementation">技術実装</a></li>
+            <li><a href="#examples">応用例</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- 基礎理論セクション -->
+        <section id="theory">
+            <h2>基礎理論</h2>
+            
+            <div class="theory-card">
+                <h3>三角関数の基礎</h3>
+                <div class="content">
+                    <div class="text">
+                        <h4>sin・cos・tan</h4>
+                        <p>三角関数は円周上の点の座標を表します：</p>
+                        <ul>
+                            <li>sin(θ) = y座標</li>
+                            <li>cos(θ) = x座標</li>
+                            <li>tan(θ) = sin(θ)/cos(θ)</li>
+                        </ul>
+                        <p>角度: <input type="range" id="angleSlider" min="0" max="360" value="0"> <span id="angleValue">0°</span></p>
+                    </div>
+                    <div class="visual">
+                        <canvas id="unitCircle" width="300" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="theory-card">
+                <h3>線形代数の基礎</h3>
+                <div class="content">
+                    <div class="text">
+                        <h4>座標変換</h4>
+                        <p>2D座標変換の基本操作：</p>
+                        <ul>
+                            <li><strong>平行移動:</strong> (x, y) → (x + dx, y + dy)</li>
+                            <li><strong>回転:</strong> 角度θで回転</li>
+                            <li><strong>拡大縮小:</strong> スケール係数sで拡大</li>
+                        </ul>
+                        <p>回転角度: <input type="range" id="rotationSlider" min="0" max="360" value="0"> <span id="rotationValue">0°</span></p>
+                    </div>
+                    <div class="visual">
+                        <canvas id="transformationDemo" width="300" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 技術実装セクション -->
+        <section id="implementation">
+            <h2>技術実装</h2>
+            
+            <div class="implementation-card">
+                <h3>Canvas API による描画</h3>
+                <div class="content">
+                    <div class="text">
+                        <h4>基本的な描画操作</h4>
+                        <p>HTML5 Canvas APIを使用した図形の描画：</p>
+                        <ul>
+                            <li>円の描画（三角関数活用）</li>
+                            <li>多角形の描画</li>
+                            <li>アニメーションの実装</li>
+                        </ul>
+                        <button id="startAnimation">アニメーション開始</button>
+                        <button id="stopAnimation">アニメーション停止</button>
+                    </div>
+                    <div class="visual">
+                        <canvas id="canvasDemo" width="400" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="implementation-card">
+                <h3>行列演算による座標変換</h3>
+                <div class="content">
+                    <div class="text">
+                        <h4>変換行列の実装</h4>
+                        <p>JavaScriptでの行列演算と座標変換：</p>
+                        <ul>
+                            <li>回転行列の計算</li>
+                            <li>複合変換の実装</li>
+                            <li>パフォーマンス最適化</li>
+                        </ul>
+                        <p>スケール: <input type="range" id="scaleSlider" min="0.1" max="2" step="0.1" value="1"> <span id="scaleValue">1.0</span></p>
+                    </div>
+                    <div class="visual">
+                        <canvas id="matrixDemo" width="400" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 応用例セクション -->
+        <section id="examples">
+            <h2>応用例</h2>
+            
+            <div class="example-card">
+                <h3>インタラクティブな図形描画</h3>
+                <div class="content">
+                    <div class="text">
+                        <h4>マウス操作による図形の制御</h4>
+                        <p>マウスの位置に応じて図形が変化します：</p>
+                        <ul>
+                            <li>マウス位置による回転</li>
+                            <li>距離に応じたスケール変化</li>
+                            <li>リアルタイムな視覚的フィードバック</li>
+                        </ul>
+                    </div>
+                    <div class="visual">
+                        <canvas id="interactiveDemo" width="400" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-card">
+                <h3>波動アニメーション</h3>
+                <div class="content">
+                    <div class="text">
+                        <h4>三角関数を使った波動の生成</h4>
+                        <p>sin関数を活用した波動アニメーション：</p>
+                        <ul>
+                            <li>時間に応じた波動の変化</li>
+                            <li>複数の波の重ね合わせ</li>
+                            <li>パラメータによる波形の調整</li>
+                        </ul>
+                        <p>波の数: <input type="range" id="waveCountSlider" min="1" max="5" value="3"> <span id="waveCountValue">3</span></p>
+                    </div>
+                    <div class="visual">
+                        <canvas id="waveDemo" width="400" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 JavaScript グラフィックス処理 学習サイト</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 
