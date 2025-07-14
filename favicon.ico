@@ -1,0 +1,12 @@
+# ICO形式のファビコンファイル
+# このファイルは実際にはバイナリファイルなので、SVGから変換する必要があります
+# オンラインのSVG to ICO変換ツールを使用するか、
+# 以下のコマンドでImageMagickを使用して変換できます：
+# 
+# convert favicon.svg -resize 16x16 favicon-16x16.png
+# convert favicon.svg -resize 32x32 favicon-32x32.png
+# convert favicon.svg -resize 48x48 favicon-48x48.png
+# convert favicon-16x16.png favicon-32x32.png favicon-48x48.png favicon.ico
+#
+# または、favicon.svgファイルをそのまま使用することも可能です
+# モダンブラウザはSVGファビコンをサポートしています 

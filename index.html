@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JavaScript グラフィックス処理 - 三角関数と線形代数</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -36,6 +37,16 @@
                             <li>cos(θ) = x座標</li>
                             <li>tan(θ) = sin(θ)/cos(θ)</li>
                         </ul>
+                        <h4>JavaScriptでの実装方法</h4>
+                        <div class="code-example">
+                            <p><strong>角度から座標を計算：</strong></p>
+                            <pre><code>// 角度をラジアンに変換
+const angleRadians = (angleDegrees * Math.PI) / 180;
+
+// 三角関数で座標を計算
+const x = centerX + radius * Math.cos(angleRadians);
+const y = centerY - radius * Math.sin(angleRadians); // Y軸は反転</code></pre>
+                        </div>
                         <p>角度: <input type="range" id="angleSlider" min="0" max="360" value="0"> <span id="angleValue">0°</span></p>
                     </div>
                     <div class="visual">
@@ -55,6 +66,20 @@
                             <li><strong>回転:</strong> 角度θで回転</li>
                             <li><strong>拡大縮小:</strong> スケール係数sで拡大</li>
                         </ul>
+                        <h4>回転行列の実装</h4>
+                        <div class="code-example">
+                            <p><strong>回転行列の計算：</strong></p>
+                            <pre><code>// 角度をラジアンに変換
+const angleRadians = (angleDegrees * Math.PI) / 180;
+
+// 回転行列の要素
+const cos = Math.cos(angleRadians);
+const sin = Math.sin(angleRadians);
+
+// 回転後の座標を計算
+const newX = x * cos - y * sin;
+const newY = x * sin + y * cos;</code></pre>
+                        </div>
                         <p>回転角度: <input type="range" id="rotationSlider" min="0" max="360" value="0"> <span id="rotationValue">0°</span></p>
                     </div>
                     <div class="visual">
@@ -79,6 +104,24 @@
                             <li>多角形の描画</li>
                             <li>アニメーションの実装</li>
                         </ul>
+                        <h4>Canvas APIでの描画実装</h4>
+                        <div class="code-example">
+                            <p><strong>正多角形の描画：</strong></p>
+                            <pre><code>// 正六角形を描画
+ctx.beginPath();
+for (let i = 0; i < 6; i++) {
+    const angle = (i * Math.PI) / 3;
+    const x = centerX + radius * Math.cos(angle);
+    const y = centerY + radius * Math.sin(angle);
+    if (i === 0) {
+        ctx.moveTo(x, y);
+    } else {
+        ctx.lineTo(x, y);
+    }
+}
+ctx.closePath();
+ctx.fill();</code></pre>
+                        </div>
                         <button id="startAnimation">アニメーション開始</button>
                         <button id="stopAnimation">アニメーション停止</button>
                     </div>
@@ -99,6 +142,21 @@
                             <li>複合変換の実装</li>
                             <li>パフォーマンス最適化</li>
                         </ul>
+                        <h4>スケール変換の実装</h4>
+                        <div class="code-example">
+                            <p><strong>スケール変換の計算：</strong></p>
+                            <pre><code>// スケール変換
+const scaleX = originalX * scale;
+const scaleY = originalY * scale;
+
+// Canvasでの描画
+ctx.fillRect(
+    centerX - 25 * scale,
+    centerY - 25 * scale,
+    50 * scale,
+    50 * scale
+);</code></pre>
+                        </div>
                         <p>スケール: <input type="range" id="scaleSlider" min="0.1" max="2" step="0.1" value="1"> <span id="scaleValue">1.0</span></p>
                     </div>
                     <div class="visual">
@@ -113,7 +171,7 @@
             <h2>応用例</h2>
             
             <div class="example-card">
-                <h3>インタラクティブな図形描画</h3>
+                <h3>図形描画</h3>
                 <div class="content">
                     <div class="text">
                         <h4>マウス操作による図形の制御</h4>
@@ -123,6 +181,26 @@
                             <li>距離に応じたスケール変化</li>
                             <li>リアルタイムな視覚的フィードバック</li>
                         </ul>
+                        <h4>インタラクティブ処理の実装</h4>
+                        <div class="code-example">
+                            <p><strong>マウス位置の計算と図形制御：</strong></p>
+                            <pre><code>// マウスと中心の距離を計算
+const dx = mouseX - centerX;
+const dy = mouseY - centerY;
+const distance = Math.sqrt(dx * dx + dy * dy);
+
+// 角度を計算
+const angle = Math.atan2(dy, dx);
+
+// 距離に応じたスケール
+const scale = Math.min(2, Math.max(0.5, distance / 100));
+
+// 図形の回転とスケール
+ctx.save();
+ctx.translate(centerX, centerY);
+ctx.rotate(angle);
+ctx.scale(scale, scale);</code></pre>
+                        </div>
                     </div>
                     <div class="visual">
                         <canvas id="interactiveDemo" width="400" height="300"></canvas>
@@ -141,6 +219,25 @@
                             <li>複数の波の重ね合わせ</li>
                             <li>パラメータによる波形の調整</li>
                         </ul>
+                        <h4>波動アニメーションの実装</h4>
+                        <div class="code-example">
+                            <p><strong>sin関数を使った波動の生成：</strong></p>
+                            <pre><code>// 波動アニメーション
+for (let x = 0; x < canvas.width; x++) {
+    const normalizedX = (x / canvas.width) * Math.PI * 4;
+    const amplitude = 30 + wave * 10;
+    const frequency = 1 + wave * 0.5;
+    const phase = time + wave * Math.PI / 3;
+    
+    const y = centerY + amplitude * Math.sin(frequency * normalizedX + phase);
+    
+    if (x === 0) {
+        ctx.moveTo(x, y);
+    } else {
+        ctx.lineTo(x, y);
+    }
+}</code></pre>
+                        </div>
                         <p>波の数: <input type="range" id="waveCountSlider" min="1" max="5" value="3"> <span id="waveCountValue">3</span></p>
                     </div>
                     <div class="visual">
